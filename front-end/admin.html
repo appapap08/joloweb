@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard – Senior Data System</title>
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <h1>Admin Dashboard</h1>
+    <button class="logout" onclick="logout()">Logout</button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+
+    <!-- ACTION BAR -->
+    <div class="actions">
+      <input
+        type="text"
+        id="search"
+        placeholder="Search senior by name..."
+        onkeyup="searchSenior()"
+      />
+      <button onclick="addSenior()">+ Add New Senior</button>
+    </div>
+
+    <!-- SENIOR TABLE -->
+    <table id="seniorTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Contact</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- SAMPLE DATA -->
+        <tr>
+          <td>Erwin Pogi</td>
+          <td>65</td>
+          <td>Male</td>
+          <td>09123456789</td>
+          <td>
+            <button class="view-btn" onclick="viewDetails(
+              'Erwin Pogi',
+              '65',
+              'Male',
+              'Brgy. San Isidro',
+              '09123456789',
+              'Wala pa - 09999999999',
+              'Diabetes'
+            )">View</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Jolo Cute</td>
+          <td>70</td>
+          <td>Male</td>
+          <td>09987654321</td>
+          <td>
+            <button class="view-btn" onclick="viewDetails(
+              'Jolo cute',
+              '70',
+              'Male',
+              'Brgy. Mabini',
+              '09987654321',
+              'wala pa - 09888888888',
+              'High Blood Pressure'
+            )">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </main>
+
+  <!-- VIEW DETAILS MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2>Senior Full Details</h2>
+
+      <p><strong>Name:</strong> <span id="mName"></span></p>
+      <p><strong>Age:</strong> <span id="mAge"></span></p>
+      <p><strong>Gender:</strong> <span id="mGender"></span></p>
+      <p><strong>Address:</strong> <span id="mAddress"></span></p>
+      <p><strong>Contact:</strong> <span id="mContact"></span></p>
+      <p><strong>Emergency Contact:</strong> <span id="mEmergency"></span></p>
+      <p><strong>Medical Condition:</strong> <span id="mMedical"></span></p>
+
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    function addSenior() {
+      window.location.href = "/front-end/homepage.html";
+    }
+
+    function logout() {
+      window.location.href = "/front-end/login.html";
+    }
+
+    function searchSenior() {
+      const input = document.getElementById("search").value.toLowerCase();
+      const rows = document.querySelectorAll("#seniorTable tbody tr");
+
+      rows.forEach(row => {
+        const name = row.cells[0].textContent.toLowerCase();
+        row.style.display = name.includes(input) ? "" : "none";
+      });
+    }
+
+    function viewDetails(name, age, gender, address, contact, emergency, medical) {
+      document.getElementById("mName").textContent = name;
+      document.getElementById("mAge").textContent = age;
+      document.getElementById("mGender").textContent = gender;
+      document.getElementById("mAddress").textContent = address;
+      document.getElementById("mContact").textContent = contact;
+      document.getElementById("mEmergency").textContent = emergency;
+      document.getElementById("mMedical").textContent = medical;
+
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
